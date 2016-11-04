@@ -12,12 +12,19 @@ CONFIG_DIR    := $(SYSCONFDIR)/$(APP_NAME)
 PYTHON        := $(binDir)/python
 
 APP_NAME      := $(notdir $(srcDir))
+DB_FILENAME   := $(shell grep ^DB_NAME $(CONFIG_DIR)/site.conf | cut -f 2 -d '"')
 
 all::
 	@echo "Nothing to be done for 'make'."
 
 
 install:: install-conf
+
+
+initdb: install-conf
+	-[ -f $(DB_FILENAME) ] && rm -f $(DB_FILENAME)
+	install -d $(DESTDIR)$(LOCALSTATEDIR)/db
+	cd $(srcDir) && $(PYTHON) ./manage.py migrate --noinput --fake-initial
 
 
 install-conf:: $(DESTDIR)$(SYSCONFDIR)/$(APP_NAME)/credentials \
