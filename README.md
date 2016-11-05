@@ -4,9 +4,18 @@ behind DjaoDjin session proxy.
     $ virtualenv ~/workspace
     $ source  ~/workspace/bin/activate
 
+
 With Django
 
     # cd django_app
     $ pip install -r requirements.txt
     $ make initdb
     $ python manage.py runserver
+
+
+With Flask
+
+    # cd flask_app
+    $ pip install -r requirements.txt
+    $ make install-conf
+    $ python app.py
