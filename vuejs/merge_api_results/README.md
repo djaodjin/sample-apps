@@ -55,8 +55,7 @@ Let's check the app comes up.
 
 In this example, we will the last payment date and amount for each subscriber
 to a plan. In order to do this, we will merge the results of
-[Lists plan active subscriptions API](https://www.djaodjin.com/docs/reference/djaoapp/latest/api/#listPlanActiveSubscribers) and [Lists provider payouts API]
-(https://www.djaodjin.com/docs/reference/djaoapp/latest/api/#listTransfer).
+[Lists plan active subscriptions API](https://www.djaodjin.com/docs/reference/djaoapp/latest/api/#listPlanActiveSubscribers) and [Lists provider payouts API](https://www.djaodjin.com/docs/reference/djaoapp/latest/api/#listTransfer).
 
 
 

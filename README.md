@@ -1,21 +1,18 @@
-This project contains sample applications to show how to deploy an application
-behind DjaoDjin session proxy.
+This project contains sample applications to show how to integrate
+an application with DjaoDjin hosting and build a fully functional
+Software-as-a-Service product along the way.
 
-    $ virtualenv ~/workspace
-    $ source  ~/workspace/bin/activate
+1. [Create and test content locally](htmlpage)
+2. [Writing Javascript locally, calling the online API](apicall)
+3. [Deploy a FastAPI Docker container](py-fastapi)
+4. [Sassifying a Django application](py-django)
 
+Advanced use cases
 
-With Django
+- Access control split between Gateway and business logic
+- [Decorate bussiness logic API results with profile information](vuejs/deploy/merge_api_results)
 
-    # cd django_app
-    $ pip install -r requirements.txt
-    $ make initdb
-    $ python manage.py runserver
+Using other technologies
 
-
-With Flask
-
-    # cd flask_app
-    $ pip install -r requirements.txt
-    $ make install-conf
-    $ python app.py
+- [Deploy a Flask Docker container](py-flask)
+- [Deploy a Vue Single Page Application](vuejs/deploy/)

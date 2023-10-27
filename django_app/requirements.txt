@@ -1,2 +1,0 @@
-Django==1.9.9
-djaodjin-deployutils==0.2.9

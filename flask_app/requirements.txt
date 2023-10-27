@@ -1,2 +1,0 @@
-Flask==0.11.1
-djaodjin-deployutils==0.2.9
