@@ -81,7 +81,7 @@ in the ouptut of `npm run dev` (i.e. <strong>http://localhost:5173/</strong>
 in this case). When the page loads properly
 you will see something like the following screenshot.
 
-![Vue App default HTML page](/djaodjin/static/img/docs/tutorials/vuejs-deploy-1.png "Vue App default HTML page")
+![Vue App default HTML page](https://www.djaodjin.com/static/img/docs/tutorials/vuejs-deploy-1.png "Vue App default HTML page")
 
 Let's now deploy our app to the DjaoDjin hosting service so it is available
 on the Web for users around the World.

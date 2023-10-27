@@ -78,7 +78,7 @@ We run the server (`uvicorn main:app --reload`) and open the home page
 When the page loads properly you will see something like the following
 screenshot.
 
-![Login page](/djaodjin/static/img/docs/tutorials/apicall-1.png "Login page")
+![Login page](https://www.djaodjin.com/static/img/docs/tutorials/apicall-1.png "Login page")
 
 Our login form is not functional at this point. We will create a Javascript
 function such that when a user clicks **Sign in** we pass the credentials
@@ -178,14 +178,14 @@ On the DjaoDjin-hosted site, we browse to **Settings** in the menubar dropdown,
 then **Rules** in the left sidebar, and uncheck *Add CORS headers* under
 the *Web Application* section.
 
-![Rules page](/djaodjin/static/img/docs/tutorials/apicall-2.png "Rules page")
+![Rules page](https://www.djaodjin.com/static/img/docs/tutorials/apicall-2.png "Rules page")
 
 
 Let's try to login again! We enter our username, password for
 *livedemo*.djaoapp.com and click the **Sign in** button. Et voila!
 We see the user name show up at the top of the page.
 
-![Successful login](/djaodjin/static/img/docs/tutorials/apicall-3.png "Successful login")
+![Successful login](https://www.djaodjin.com/static/img/docs/tutorials/apicall-3.png "Successful login")
 
 Upload theme updates
 --------------------

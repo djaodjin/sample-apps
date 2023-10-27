@@ -158,7 +158,7 @@ in the ouptut of `uvicorn main:app --reload` (i.e.
 *http://127.0.0.1:8000/* in this case). When the page loads properly
 you will see something like the following screenshot.
 
-![FastAPI default HTML page](/djaodjin/static/img/docs/tutorials/htmlpage-1.png "FastAPI default HTML page")
+![FastAPI default HTML page](https://www.djaodjin.com/static/img/docs/tutorials/htmlpage-1.png "FastAPI default HTML page")
 
 
 Create a gated-content page
@@ -182,7 +182,7 @@ we just created:
 When the page loads properly you will see something like the following
 screenshot.
 
-![App page](/djaodjin/static/img/docs/tutorials/htmlpage-2.png "App page")
+![App page](https://www.djaodjin.com/static/img/docs/tutorials/htmlpage-2.png "App page")
 
 
 Upload theme updates
