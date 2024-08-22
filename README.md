@@ -9,6 +9,7 @@ Software-as-a-Service product along the way.
 
 Advanced use cases
 
+- [Onboarding a Club member](onboarding/onboarding-member/)
 - Access control split between Gateway and business logic
 - [Decorate bussiness logic API results with profile information](vuejs/deploy/merge_api_results)
 

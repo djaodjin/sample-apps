@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding member</title>
+  </head>
+  <body>
+    <h1>Onboarding Club Member</h1>
+    <div id="app">
+      <form method="post" onsubmit="onboard(event)">
+      <div id="step-1">
+        <h2>Personal information</h2>
+        <div>
+          <label>Full name</label>
+          <input type="text" class="" name="full_name"></input>
+        </div>
+        <div>
+          <label>Date of birth</label>
+          <input type="date" class="" name="date_of_birth"></input>
+        </div>
+        <div>
+          <label>Gender</label>
+          <input type="radio" class="" name="gender" value="female"></input><label>Female</label>
+          <input type="radio" class="" name="gender" value="male"></input><label>Male</label>
+        </div>
+        <div>
+          <label>Photo</label>
+          <input type="file" class="" name="picture"></input>
+        </div>
+      </div>
+      <div id="step-2">
+        <h2>Contact information</h2><!-- XXX multiple -->
+        <div>
+          <label>Kinship</label>
+          <input type="text" class="" name="contact_kinship"></input>
+        </div>
+        <div>
+          <label>Contact full name</label>
+          <input type="text" class="" name="contact_full_name"></input>
+        </div>
+        <div>
+          <label>Contact phone</label>
+          <input type="text" class="" name="contact_phone"></input>
+        </div>
+        <div>
+          <label>Contact email</label>
+          <input type="text" class="" name="contact_email"></input>
+        </div>
+      </div>
+      <div id="step-3">
+        <h2>Street Address</h2>
+        <div>
+          <label>Street address</label>
+          <input type="text" class="" name="street_address"></input>
+        </div>
+        <div>
+          <label>Postal code</label>
+          <input type="text" class="" name="postal_code"></input>
+        </div>
+        <div>
+          <label>Locality</label>
+          <input type="text" class="" name="locality"></input>
+        </div>
+        <div>
+          <label>Country</label>
+          <input type="text" class="" name="country"></input>
+        </div>
+      </div>
+      <div id="step-4">
+        <h2>Activities</h2><!-- XXX multiple -->
+        <div>
+          <label>Activity</label>
+          <select class="" name="plan">
+            <option value="tennis-club">Tennis classes</option>
+          </select>
+        </div>
+      </div>
+      <div id="step-5">
+        <h2>Review</h2>
+        <button type="submit">Register</button>
+      </div>
+      </form>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
