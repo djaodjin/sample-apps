@@ -36,7 +36,7 @@ added. Example:
          return profile             # This line for context, to be kept as-is
 
 The full source code for this tutorial is available on
-[GitHub](https://github.com/djaodjin/sample-apps/tree/master/onboard/onboarding-member).
+[GitHub](https://github.com/djaodjin/sample-apps/tree/main/onboarding/onboarding-member).
 
 
 Setting up
@@ -47,7 +47,7 @@ set to `true` in order for the Club manager to manually accept the request
 to attend a class offered by the Club.
 
 Then we create an HTML page with the expected input field in the
-onboarding workflow (see [public/index.html](https://github.com/djaodjin/sample-apps/tree/master/onboarding/onboarding-member/public/index.html)).
+onboarding workflow (see [public/index.html](https://github.com/djaodjin/sample-apps/tree/main/onboarding/onboarding-member/public/index.html)).
 
 Since we are going to write the Javascript code in a separate file
 ([public/app.js]), we need to serve the HTML page through a Webserver
@@ -67,7 +67,7 @@ to create the following models in the database:
 
 ![image](https://www.djaodjin.com/static/img/docs/onboarding-member-1.png)
 
-The workflow consists of the following steps (full source code available in [public/app.js](https://github.com/djaodjin/sample-apps/tree/master/onboarding/onboarding-member/public/app.js)):
+The workflow consists of the following steps (full source code available in [public/app.js](https://github.com/djaodjin/sample-apps/tree/main/onboarding/onboarding-member/public/app.js)):
 
 - [Register a user account](https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/api/#auth_register_create) for the parent
 - [Create the child profile](https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/api/#users_profiles_create)

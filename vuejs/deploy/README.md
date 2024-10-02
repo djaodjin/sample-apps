@@ -31,7 +31,7 @@ added. Example:
          return profile             # This line for context, to be kept as-is
 
 The full source code for this tutorial is available on
-[GitHub](https://github.com/djaodjin/sample-apps/tree/master/vuejs/deploy).
+[GitHub](https://github.com/djaodjin/sample-apps/tree/main/vuejs/deploy).
 
 
 Setting up

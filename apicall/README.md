@@ -34,7 +34,7 @@ added. Example:
          return profile             # This line for context, to be kept as-is
 
 The full source code for this tutorial is available on
-[GitHub](https://github.com/djaodjin/sample-apps/tree/master/apicall).
+[GitHub](https://github.com/djaodjin/sample-apps/tree/main/apicall).
 
 
 Setting up
