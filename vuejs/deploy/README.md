@@ -102,27 +102,27 @@ We will first install the command-line helper tools from DjaoDjin,
     ✓ built in 382ms
 
     :::bash
-  "scripts": {
-+    "deploy": "djupload dist",
-+    "fetch": "djupload --download",
-    "dev": "vite",
+      "scripts": {
+    +    "deploy": "djupload dist",
+    +    "fetch": "djupload --download",
+         "dev": "vite",
 
     $ npm run deploy
 
     read configuration from ~/.djd/credentials
     Please enter the name of the project.
     By default a project is hosted at *project*.djaoapp.com
-    (project defaults to deploy): 
+    (project defaults to deploy):
     Please enter the domain for project 'deploy'
-    (default to: deploy.djaoapp.com): 
+    (default to: deploy.djaoapp.com):
     Please enter an API Key for https://deploy.djaoapp.com
-    (see https://www.djaodjin.com/docs/faq/#api-keys for help): 
+    (see https://www.djaodjin.com/docs/faq/#api-keys for help):
     saved configuration in ~/.djd/credentials
 
 
-We go to the djaoapp URL in our favorite browser a shown in the ouptut of
-`npm run dev`. As the page loads properly we see the same page that we
-have running the App on our local development machine.
+We go to the djaoapp URL in our favorite browser. As the page loads properly,
+we see the same page that we have running the App on our local development
+machine.
 
 
 
