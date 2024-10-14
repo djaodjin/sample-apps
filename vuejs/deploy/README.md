@@ -44,7 +44,7 @@ Make sure you have an up-to-date version of Node.js installed, then run
 the following command in your command line (without the `$` sign). We will
 name the project <em>deploy</em>, otherwise choose all default options.
 
-```bash
+```console
     $ npm init vue@latest
 
     Vue.js - The Progressive JavaScript Framework
@@ -65,19 +65,19 @@ name the project <em>deploy</em>, otherwise choose all default options.
 
 We install all prerequisites.
 
-    ```bash
+```console
     $ cd deploy
     $ npm install
-    ```
+```
 
 Let's check the app comes up.
 
-    ```bash
+```console
     $ npm run dev
     VITE v3.2.3  ready in 280 ms
 
     ➜  Local:   http://localhost:5173/
-    ```
+```
 
 We now open our favorite browser and go to the URL indicated above
 in the ouptut of `npm run dev` (i.e. <strong>http://localhost:5173/</strong>
@@ -92,7 +92,7 @@ on the Web for users around the World.
 We will first install the command-line helper tools from DjaoDjin,
 <code>djupload</code>, then build the Vue code so it is ready for production.
 
-    ```bash
+```console
     $ npm install @djaodjin/djaodjin-deployutils
     $ npm run build
 
@@ -121,7 +121,7 @@ We will first install the command-line helper tools from DjaoDjin,
     Please enter an API Key for https://deploy.djaoapp.com
     (see https://www.djaodjin.com/docs/faq/#api-keys for help):
     saved configuration in ~/.djd/credentials
-    ```
+```
 
 We go to the djaoapp URL in our favorite browser. As the page loads properly,
 we see the same page that we have running the App on our local development
