@@ -44,7 +44,7 @@ Make sure you have an up-to-date version of Node.js installed, then run
 the following command in your command line (without the `$` sign). We will
 name the project <em>deploy</em>, otherwise choose all default options.
 
-    ```bash
+```bash
     $ npm init vue@latest
 
     Vue.js - The Progressive JavaScript Framework
@@ -61,7 +61,7 @@ name the project <em>deploy</em>, otherwise choose all default options.
     Scaffolding project in sample-apps/vuejs/deploy...
 
     Done.
-    ```
+```
 
 We install all prerequisites.
 
