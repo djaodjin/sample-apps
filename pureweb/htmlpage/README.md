@@ -27,17 +27,22 @@ a shell prompt, or a command for you to type. Lines that do not start
 with a `$` character show a sample output from that command.
 Example:
 
-    $ whoami
-    ec2-user
+```bash
+$ whoami
+ec2-user
+```
 
 Text edits within source files are shown in universal diff format with lines
 preceded by a '-' sign to be removed and lines preceded by a '+' sign to be
 added. Example:
 
-     def set_default_profile():     # This line for context, to be kept as-is
-    -    profile = 'abc'            # This line to be removed
-    +    profile = 'cde'            # This line to be added
-         return profile             # This line for context, to be kept as-is
+
+``` {.python title="diff"}
+ def set_default_profile():     # This line for context, to be kept as-is
+-    profile = 'abc'            # This line to be removed
++    profile = 'cde'            # This line to be added
+     return profile             # This line for context, to be kept as-is
+```
 
 The full source code for this tutorial is available on
 [GitHub](https://github.com/djaodjin/sample-apps/tree/main/htmlpage).
@@ -50,66 +55,69 @@ We will use [FastAPI](https://fastapi.tiangolo.com/) to run the local
 Webserver. We thus create a skeleton FastAPI application that serves
 HTML pages rendered from Jinja2 templates.
 
-    $ python -m venv .venv
-    $ source .venv/bin/activate
-    $ pip install fastapi "uvicorn[standard]" Jinja2
+``` {.bash title="Terminal"}
+$ python -m venv .venv
+$ source .venv/bin/activate
+$ pip install fastapi "uvicorn[standard]" Jinja2
+```
 
 Create a file `main.py` that loads Jinja2 templates and returns HTML pages
 based on the URL path.
 
-    #!/usr/bin/env python
+``` {.python title="main.py"}
+#!/usr/bin/env python
 
-    import os
-    from fastapi import FastAPI
-    from fastapi.responses import FileResponse, HTMLResponse
-    from jinja2 import Environment, PackageLoader, select_autoescape
-    from jinja2.ext import i18n
+import os
+from fastapi import FastAPI
+from fastapi.responses import FileResponse, HTMLResponse
+from jinja2 import Environment, PackageLoader, select_autoescape
+from jinja2.ext import i18n
 
-    DJAOAPP_SUBDOMAIN = "*subdomain*"
+DJAOAPP_SUBDOMAIN = "*subdomain*"
 
-    app = FastAPI()
+app = FastAPI()
 
-    env = Environment(
-        loader=PackageLoader(DJAOAPP_SUBDOMAIN),
-        autoescape=select_autoescape(),
-        extensions=[i18n]
-    )
-    env.install_null_translations()
+env = Environment(
+    loader=PackageLoader(DJAOAPP_SUBDOMAIN),
+    autoescape=select_autoescape(),
+    extensions=[i18n]
+)
+env.install_null_translations()
 
-    def prefix_filter(path):
-        if not path.startswith('/'):
-            path = '/' + path
-        return path
+def prefix_filter(path):
+    if not path.startswith('/'):
+        path = '/' + path
+    return path
 
-    env.filters['asset'] = prefix_filter
-    env.filters['site_url'] = prefix_filter
+env.filters['asset'] = prefix_filter
+env.filters['site_url'] = prefix_filter
 
-    # Serves the homepage, i.e. http://127.0.0.1:8000/
-    @app.get("/", response_class=HTMLResponse)
-    def read_root():
-        return read_page('index')
-
-
-    # Serves the favicon
-    @app.get("/favicon.ico")
-    def read_favicon():
-        return FileResponse(os.path.join(
-            DJAOAPP_SUBDOMAIN, 'public', 'favicon.ico'))
+# Serves the homepage, i.e. http://127.0.0.1:8000/
+@app.get("/", response_class=HTMLResponse)
+def read_root():
+    return read_page('index')
 
 
-    # Serves public static assets such as .css and .js files.
-    @app.get("/static/{asset_path:path}")
-    def read_asset(asset_path):
-        return FileResponse(os.path.join(
-            DJAOAPP_SUBDOMAIN, 'public', 'static', asset_path))
+# Serves the favicon
+@app.get("/favicon.ico")
+def read_favicon():
+    return FileResponse(os.path.join(
+        DJAOAPP_SUBDOMAIN, 'public', 'favicon.ico'))
 
 
-    # Serves HTML pages, i.e. http://127.0.0.1:8000/{page}/
-    @app.get("/{page:path}/", response_class=HTMLResponse)
-    def read_page(page):
-        template = env.get_template("%s.html" % page)
-        return template.render(urls={})
+# Serves public static assets such as .css and .js files.
+@app.get("/static/{asset_path:path}")
+def read_asset(asset_path):
+    return FileResponse(os.path.join(
+        DJAOAPP_SUBDOMAIN, 'public', 'static', asset_path))
 
+
+# Serves HTML pages, i.e. http://127.0.0.1:8000/{page}/
+@app.get("/{page:path}/", response_class=HTMLResponse)
+def read_page(page):
+    template = env.get_template("%s.html" % page)
+    return template.render(urls={})
+```
 
 Download default theme
 ----------------------
@@ -117,41 +125,51 @@ Download default theme
 We will first install and configure the command-line helper tools from DjaoDjin,
 <code>djd</code>.
 
-    $ pip install djaodjin-deployutils
-    $ djd init
-    Please enter the name of the project.
-    By default a project is hosted at *project*.djaoapp.com
-    (project defaults to htmlpage): _livedemo_
-    Please enter the account project '_livedemo_' belongs to
-    (default to _livedemo_): _livedemo_
-    Please enter the domain for project '_livedemo_'
-    (default to: _livedemo_.djaoapp.com):
-    Please enter an API Key for https://auth.djaoapp.com
-    (see https://www.djaodjin.com/docs/faq/#api-keys for help): _ABC***123_
-    saved configuration in $HOME/.djd/credentials
+``` {.bash title="Terminal"}
+$ pip install djaodjin-deployutils
+$ djd init
+Please enter the name of the project.
+By default a project is hosted at *project*.djaoapp.com
+(project defaults to htmlpage): _livedemo_
+Please enter the account project '_livedemo_' belongs to
+(default to _livedemo_): _livedemo_
+Please enter the domain for project '_livedemo_'
+(default to: _livedemo_.djaoapp.com):
+Please enter an API Key for https://auth.djaoapp.com
+(see https://www.djaodjin.com/docs/faq/#api-keys for help): _ABC***123_
+saved configuration in $HOME/.djd/credentials
+```
 
 We then now download the default theme from our DjaoDjin Website.
 
-    $ djd download
-    read configuration from $HOME/.djd/credentials
-    INFO:deployutils.copy:GET https://_livedemo_.djaoapp.com/themes/download/ returns 200
-    INFO:deployutils.copy:saves downloaded theme in _livedemo_.zip
+``` {.bash title="Terminal"}
+$ djd download
+read configuration from $HOME/.djd/credentials
+INFO:deployutils.copy:GET https://_livedemo_.djaoapp.com/themes/download/ returns 200
+INFO:deployutils.copy:saves downloaded theme in _livedemo_.zip
+```
 
 It remains to install the `templates` and static assets (i.e. CSS, Javascript)
 for our FastAPI Webserver to be able to find them.
 
-    $ unzip _livedemo_.zip
+``` {.bash title="Terminal"}
+$ unzip _livedemo_.zip
+```
 
 We are ready to process Jinja2 templates and serve HTML page. We still need
 to check the local server will find them, so we edit `main.py` to reflect where
 the templates were unzipped:
 
-    -DJAOAPP_SUBDOMAIN = "_subdomain_"
-    +DJAOAPP_SUBDOMAIN = "_livedemo_"
+``` {.python title="main.py"}
+-DJAOAPP_SUBDOMAIN = "_subdomain_"
++DJAOAPP_SUBDOMAIN = "_livedemo_"
+```
 
 Finally we run the server with:
 
-    $ uvicorn main:app --reload
+``` {.bash title="Terminal"}
+$ uvicorn main:app --reload
+```
 
 We now open our favorite browser and go to the URL indicated above
 in the ouptut of `uvicorn main:app --reload` (i.e.
@@ -168,11 +186,13 @@ The content page we will require users to authenticate before they
 can access it will be at URL `https://_livedemo.djaoapp.com_/app/`,
 so we create a file "_livedemo_/templates/app.html" locally.
 
-    {% extends "base.html" %}
+``` {.jinja2 title="app.html"}
+{% extends "base.html" %}
 
-    {% block content %}
-    <h1 class="text-center">Hello World!</h1>
-    {% endblock %}
+{% block content %}
+<h1 class="text-center">Hello World!</h1>
+{% endblock %}
+```
 
 We run the server (`uvicorn main:app --reload`) and browse to the app page
 we just created:
@@ -190,7 +210,9 @@ Upload theme updates
 
 The page looks good so let's publish it. To do so we run the command
 
-    $ djd upload _livedemo_/templates
+``` {.bash title="Terminal"}
+$ djd upload _livedemo_/templates
+```
 
 This creates a "_livedemo_.zip" file that is then uploaded
 to the [themes API endpoint](https://www.djaodjin.com/docs/reference/djaoapp/2023-09-22/api/#createDjaoAppThemePackageList).

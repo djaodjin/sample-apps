@@ -18,17 +18,21 @@ a shell prompt, or a command for you to type. Lines that do not start
 with a `$` character show a sample output from that command.
 Example:
 
-    $ whoami
-    ec2-user
+```console
+$ whoami
+ec2-user
+```
 
 Text edits within source files are shown in universal diff format with lines
 preceded by a '-' sign to be removed and lines preceded by a '+' sign to be
 added. Example:
 
-     def set_default_profile():     # This line for context, to be kept as-is
-    -    profile = 'abc'            # This line to be removed
-    +    profile = 'cde'            # This line to be added
-         return profile             # This line for context, to be kept as-is
+``` {.python title="diff"}
+ def set_default_profile():     # This line for context, to be kept as-is
+-    profile = 'abc'            # This line to be removed
++    profile = 'cde'            # This line to be added
+     return profile             # This line for context, to be kept as-is
+```
 
 The full source code for this tutorial is available on
 [GitHub](https://github.com/djaodjin/sample-apps/tree/main/vuejs/deploy).
@@ -45,38 +49,38 @@ the following command in your command line (without the `$` sign). We will
 name the project <em>deploy</em>, otherwise choose all default options.
 
 ```console
-    $ npm init vue@latest
+$ npm init vue@latest
 
-    Vue.js - The Progressive JavaScript Framework
+Vue.js - The Progressive JavaScript Framework
 
-    ✔ Project name: … deploy
-    ✔ Add TypeScript? … No / Yes
-    ✔ Add JSX Support? … No / Yes
-    ✔ Add Vue Router for Single Page Application development? … No / Yes
-    ✔ Add Pinia for state management? … No / Yes
-    ✔ Add Vitest for Unit Testing? … No / Yes
-    ✔ Add an End-to-End Testing Solution? › No
-    ✔ Add ESLint for code quality? … No / Yes
+✔ Project name: … deploy
+✔ Add TypeScript? … No / Yes
+✔ Add JSX Support? … No / Yes
+✔ Add Vue Router for Single Page Application development? … No / Yes
+✔ Add Pinia for state management? … No / Yes
+✔ Add Vitest for Unit Testing? … No / Yes
+✔ Add an End-to-End Testing Solution? › No
+✔ Add ESLint for code quality? … No / Yes
 
-    Scaffolding project in sample-apps/vuejs/deploy...
+Scaffolding project in sample-apps/vuejs/deploy...
 
-    Done.
+Done.
 ```
 
 We install all prerequisites.
 
 ```console
-    $ cd deploy
-    $ npm install
+$ cd deploy
+$ npm install
 ```
 
 Let's check the app comes up.
 
 ```console
-    $ npm run dev
-    VITE v3.2.3  ready in 280 ms
+$ npm run dev
+VITE v3.2.3  ready in 280 ms
 
-    ➜  Local:   http://localhost:5173/
+➜  Local:   http://localhost:5173/
 ```
 
 We now open our favorite browser and go to the URL indicated above
@@ -93,34 +97,34 @@ We will first install the command-line helper tools from DjaoDjin,
 <code>djupload</code>, then build the Vue code so it is ready for production.
 
 ```console
-    $ npm install @djaodjin/djaodjin-deployutils
-    $ npm run build
+$ npm install @djaodjin/djaodjin-deployutils
+$ npm run build
 
-    vite v4.4.11 building for production...
-    ✓ 23 modules transformed.
-    dist/assets/logo-277e0e97.svg    0.28 kB │ gzip:  0.20 kB
-    dist/index.html                  0.42 kB │ gzip:  0.28 kB
-    dist/assets/index-ef4f98ff.css   3.69 kB │ gzip:  1.19 kB
-    dist/assets/index-0ded4fc5.js   60.06 kB │ gzip: 23.86 kB
-    ✓ built in 382ms
+vite v4.4.11 building for production...
+✓ 23 modules transformed.
+dist/assets/logo-277e0e97.svg    0.28 kB │ gzip:  0.20 kB
+dist/index.html                  0.42 kB │ gzip:  0.28 kB
+dist/assets/index-ef4f98ff.css   3.69 kB │ gzip:  1.19 kB
+dist/assets/index-0ded4fc5.js   60.06 kB │ gzip: 23.86 kB
+✓ built in 382ms
 
-    $ diff -u package.json
-      "scripts": {
-    +    "deploy": "djupload dist",
-    +    "fetch": "djupload --download",
-         "dev": "vite",
+$ diff -u package.json
+ "scripts": {
++    "deploy": "djupload dist",
++    "fetch": "djupload --download",
+     "dev": "vite",
 
-    $ npm run deploy
+$ npm run deploy
 
-    read configuration from ~/.djd/credentials
-    Please enter the name of the project.
-    By default a project is hosted at *project*.djaoapp.com
-    (project defaults to deploy):
-    Please enter the domain for project 'deploy'
-    (default to: deploy.djaoapp.com):
-    Please enter an API Key for https://deploy.djaoapp.com
-    (see https://www.djaodjin.com/docs/faq/#api-keys for help):
-    saved configuration in ~/.djd/credentials
+read configuration from ~/.djd/credentials
+Please enter the name of the project.
+By default a project is hosted at *project*.djaoapp.com
+(project defaults to deploy):
+Please enter the domain for project 'deploy'
+(default to: deploy.djaoapp.com):
+Please enter an API Key for https://deploy.djaoapp.com
+(see https://www.djaodjin.com/docs/faq/#api-keys for help):
+saved configuration in ~/.djd/credentials
 ```
 
 We go to the djaoapp URL in our favorite browser. As the page loads properly,

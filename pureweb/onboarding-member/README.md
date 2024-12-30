@@ -23,17 +23,21 @@ a shell prompt, or a command for you to type. Lines that do not start
 with a `$` character show a sample output from that command.
 Example:
 
-    $ whoami
-    ec2-user
+```bash
+$ whoami
+ec2-user
+```
 
 Text edits within source files are shown in universal diff format with lines
 preceded by a '-' sign to be removed and lines preceded by a '+' sign to be
 added. Example:
 
-     def set_default_profile():     # This line for context, to be kept as-is
-    -    profile = 'abc'            # This line to be removed
-    +    profile = 'cde'            # This line to be added
-         return profile             # This line for context, to be kept as-is
+``` {.python title="diff"}
+ def set_default_profile():     # This line for context, to be kept as-is
+-    profile = 'abc'            # This line to be removed
++    profile = 'cde'            # This line to be added
+     return profile             # This line for context, to be kept as-is
+```
 
 The full source code for this tutorial is available on
 [GitHub](https://github.com/djaodjin/sample-apps/tree/main/onboarding/onboarding-member).
@@ -55,7 +59,9 @@ instead of directly loading it as a file inside a browser.
 
 Any Webserver will do. Here we will run the embed python Webserver:
 
-    $ python -m http.server --bind 127.0.0.1 --directory public
+``` {.bash title="Terminal"}
+$ python -m http.server --bind 127.0.0.1 --directory public
+```
 
 Then load the URL `http://127.0.0.1/index.html` in a Web browser.
 
@@ -106,30 +112,34 @@ Adding meta information
 We add meta information intrinsic to the child (date of birth, gender)
 at the time we create the profile through the `extra` field.
 
-    const dateOfBirth = document.getElementsByName('date_of_birth')[0].value;
-    const gender = document.getElementsByName('gender')[0].value;
-    fetch(API_URL + ['/api/users/' + user.username + '/profiles'](https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/api/#users_profiles_create), {
-      ...
+``` javascript
+const dateOfBirth = document.getElementsByName('date_of_birth')[0].value;
+const gender = document.getElementsByName('gender')[0].value;
+fetch(API_URL + ['/api/users/' + user.username + '/profiles'](https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/api/#users_profiles_create), {
+    ...
 
-      body: JSON.stringify({
+    body: JSON.stringify({
         ...
-         extra: {date_of_birth: dateOfBirth, gender: gender}
-      })
+        extra: {date_of_birth: dateOfBirth, gender: gender}
     })
+})
+```
 
 We add meta information associated to the relationship (parent, guardian)
 to the role itself.
 
-    const contactKinship = document.getElementsByName(
-        'contact_kinship')[0].value;
-    fetch(API_URL + '/api/profile/' + profile.slug + '/roles/manager/' + user.username, {
-      ...
+``` javascript
+const contactKinship = document.getElementsByName(
+    'contact_kinship')[0].value;
+fetch(API_URL + '/api/profile/' + profile.slug + '/roles/manager/' + user.username, {
+    ...
 
-      body: JSON.stringify({
+    body: JSON.stringify({
         ...
-         extra: {kinship: contactKinship}
-      })
+        extra: {kinship: contactKinship}
     })
+})
+```
 
 
 Adding multiple parent/guardian to the child profile

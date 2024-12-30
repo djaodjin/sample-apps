@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="DjaoDjin inc.">
+    <meta name="copyright" content="Copyright (c) 2024 DjaoDjin inc.">
+    <link rel="icon" href="{{'/favicon.ico'|site_url}}" type="image/x-icon">
+    <meta property="og:site_name" content="DjaoDjin Sample Apps" />
+    <meta property="og:type" content="website" />
+    <title>Dynamic Menubar Item | DjaoDjin</title>
+    <link rel="stylesheet" media="screen" href="http://localhost:8020/assets/cache/djaodjin-menubar.css" />
+    <style>
+body {
+   margin: 0;
+   box-sizing: border-box;
+}
+
+#wrap {
+    width: 100%;
+    min-height: 100vh;
+}
+
+#main {
+    min-height: 100%;
+    padding-bottom: 150px;
+}
+
+.footer {
+    position: relative;
+    height: 150px;
+    bottom: 0;
+    margin: -150px 0 0 0;
+    padding: 20px 0;
+    clear: both;
+    text-align: center;
+    font-size: 12px;
+    flex-shrink: 0;
+    color: #FFF;
+    background-color: #3e7ebf;
+    width: 100%;
+    text-align: center;
+}
+
+.bg-primary {
+    background-color: #3e7ebf;
+}
+
+.navbar {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid #888;
+}
+
+.navbar-collapse {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: flex-end !important;
+}
+
+.navbar-nav {
+    display: flex;
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style: none;
+    padding: 0.5em 0.5em;
+}
+
+.text-center {
+  text-align: center;
+}
+    </style>
+</head>
+<body>
+  <div id="wrap">
+    <div id="main">
+      <header>
+        <nav class="navbar bg-primary">
+
+          <div class="navbar-collapse">
+          </div>
+
+          <div id="userMenubarItem" data-dj-menubar-user-item>
+            <!-- The content here will be replaced by _menubar.html -->
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a id="login" class="nav-link" href="{{'/login/'|site_url}}">Sign In</a>
+              </li>
+            </ul>
+            <!--  end of replaced by _menubar.html -->
+          </div>
+        </nav>
+      </header>
+
+      <div>
+        <div id="messages">
+          <div id="messages-content">
+          </div>
+        </div>
+
+        {% block content %}
+        <div id="app" class="text-center mt-4">
+          <h1>Login</h1>
+          <form class="text-start" method="post" action="/login/"
+                onsubmit="authUser(event)">
+              <label class="form-label">Username</label>
+              <input class="form-control w-100" autocomplete="username" name="username" type="text">
+              <label class="form-label">Password</label>
+              <input class="form-control w-100" autocomplete="current-password" name="password" type="password">
+              <button type="submit" class="btn btn-primary w-100 mt-4">
+                  Sign in
+              </button>
+          </form>
+        </div>
+        {% endblock %}
+      </div>
+    </div><!-- /#main -->
+  </div><!-- /.wrap -->
+
+  <footer class="footer">
+    <div>
+        Powered by DjaoDjin. &copy; 2024 All rights reserved.
+    </div>
+  </footer>
+
+  <script type="text/javascript">
+{% if urls and urls.api_base %}
+const DJAOAPP_API_BASE_URL = "{{urls.api_base}}";
+{% endif %}
+  </script>
+  <script type="text/javascript" src="/static/js/auth.js"></script>
+  <script type="text/javascript" src="http://localhost:8020/assets/js/djaodjin-menubar.js"></script>
+</body>
+</html>

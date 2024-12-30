@@ -3,7 +3,7 @@
 {% block content %}
 <div>
   <form
-      onsubmit="auth(event)"
+      onsubmit="authUser(event)"
       method="post" action="/login/">
     {% include "accounts/_login_form_fields.html" %}
     <button type="submit" class="btn btn-primary">
@@ -16,7 +16,9 @@
 
 {% block bodyscripts %}
 <script type="text/javascript">
-const API_URL = "https://livedemo.djaoapp.com/api";
+{% if urls and urls.api_base %}
+const DJAOAPP_API_BASE_URL = "{{urls.api_base}}";
+{% endif %}
 </script>
 <script type="text/javascript" src="/static/js/auth.js"></script>
 {% endblock %}

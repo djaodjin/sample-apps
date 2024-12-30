@@ -1,4 +1,4 @@
-In this tutorial, we will see how to retrieves an indentity JSON Web Token
+In this tutorial, we will see how to retrieves an identity JSON Web Token
 (JWT) used in subsequent HTTP requests to authenticate with the API Gateway
 (djaoapp).
 
