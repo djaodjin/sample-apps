@@ -1,6 +1,27 @@
 const API_URL = typeof DJAOAPP_API_BASE_URL !== 'undefined' ?
   DJAOAPP_API_BASE_URL : "/api";
 
+/** Retrieves the csrf-token from Cookies or <head> meta tag.
+
+    <meta name="csrf-token" content="{{csrf_token}}">
+*/
+function getCSRFToken() {
+    "use strict";
+    const regex = new RegExp('(^| )csrftoken=([^;]+)')
+    const match = document.cookie.match(regex)
+    if( match ) {
+        console.log("found csrftoken '", match[2],"'");
+        return match[2];
+    }
+    const metas = document.getElementsByTagName('meta');
+    for( var i = 0; i < metas.length; i++) {
+        if (metas[i].getAttribute("name") == "csrf-token") {
+            return metas[i].getAttribute("content");
+        }
+    }
+    return "";
+}
+
 
 function parseJWT(token) {
   const base64Url = token.split('.')[1];
@@ -26,6 +47,7 @@ async function authUser(event) {
     const data = {'username': username, 'password': password};
     const resp = await fetch(API_URL + "/auth", {
         method: "POST",
+        //credentials: 'include',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
     })
@@ -38,9 +60,7 @@ async function authUser(event) {
         sessionStorage.setItem('authToken', authToken);
 
         // Move on to the authenticated part of the application...
-        const user = parseJWT(authToken);
-        if( !user.username ) return 0;
-        event.target.innerHTML = `Hello ${user.printable_name}!`;
+        window.location.replace("/");
 
     } else {
         document.querySelector('#messages-content').innerHTML =
@@ -48,4 +68,29 @@ async function authUser(event) {
     }
 
     return 0;
+}
+
+
+async function getUser(authToken) {
+
+    if( !authToken ) {
+        window.location.replace("/login/");
+    }
+
+    const user = parseJWT(authToken);
+    if( !user.username ) {
+        window.location.replace("/login/");
+    }
+
+    const resp = await fetch(API_URL + '/auth/tokens', {
+        headers: {
+            "Accept": "application/json",
+            "Authorization": "Bearer " + authToken,
+        }});
+    if( !resp.ok ) {
+        window.location.replace("/login/");
+    }
+
+    const userDetails = await resp.json();
+    return userDetails;
 }

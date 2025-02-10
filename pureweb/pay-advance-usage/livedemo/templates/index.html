@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+  <form
+      onsubmit="authUser(event)"
+      method="post" action="/login/">
+    {% include "accounts/_login_form_fields.html" %}
+    <button type="submit" class="btn btn-primary">
+        Sign in
+    </button>
+  </form>
+</div>
+{% endblock %}
+
+{% block bodyscripts %}
+<script type="text/javascript">
+{% if urls and urls.api_base %}
+const DJAOAPP_API_BASE_URL = "{{urls.api_base}}";
+{% endif %}
+</script>
+<script type="text/javascript" src="/static/js/auth.js"></script>
+{% endblock %}

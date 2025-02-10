@@ -24,8 +24,8 @@ env = Environment(
 env.install_null_translations()
 
 def prefix_filter(path):
-    if not path.startswith('/'):
-        path = '/' + path
+    if not path or path.startswith('/assets'):
+        return "https://www.djaoapp.com%s" % path
     return path
 
 env.filters['asset'] = prefix_filter
@@ -40,14 +40,21 @@ def read_root():
 # Serves the favicon
 @app.get("/favicon.ico")
 def read_favicon():
-    return FileResponse(os.path.join(
-        DJAOAPP_SUBDOMAIN, 'public', 'favicon.ico'))
+    return read_asset('favicon.ico', prefix=None)
+
+# Serves public assets such as .css and .js files.
+@app.get("/assets/{asset_path:path}")
+def read_asset_assets(asset_path):
+    return read_asset(asset_path, prefix='assets')
 
 
 # Serves public static assets such as .css and .js files.
 @app.get("/static/{asset_path:path}")
-def read_asset(asset_path):
-    pathname = os.path.join(DJAOAPP_SUBDOMAIN, 'public', 'static', asset_path)
+def read_asset(asset_path, prefix='static'):
+    if prefix:
+        pathname = os.path.join(DJAOAPP_SUBDOMAIN, 'public', prefix, asset_path)
+    else:
+        pathname = os.path.join(DJAOAPP_SUBDOMAIN, 'public', asset_path)
     if not os.path.exists(pathname):
         raise HTTPException(status_code=404)
     return FileResponse(pathname)
@@ -57,4 +64,6 @@ def read_asset(asset_path):
 @app.get("/{page:path}/", response_class=HTMLResponse)
 def read_page(page):
     template = env.get_template("%s.html" % page)
-    return template.render(urls={'api_base': DJAOAPP_API_BASE_URL})
+    return template.render(request="", urls={
+        'api_base': DJAOAPP_API_BASE_URL
+    })

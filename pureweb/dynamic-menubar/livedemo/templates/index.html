@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="DjaoDjin inc.">
-    <meta name="copyright" content="Copyright (c) 2024 DjaoDjin inc.">
+    <meta name="copyright" content="Copyright (c) 2025 DjaoDjin inc.">
     <link rel="icon" href="{{'/favicon.ico'|site_url}}" type="image/x-icon">
     <meta property="og:site_name" content="DjaoDjin Sample Apps" />
     <meta property="og:type" content="website" />
     <title>Dynamic Menubar Item | DjaoDjin</title>
-    <link rel="stylesheet" media="screen" href="http://localhost:8020/assets/cache/djaodjin-menubar.css" />
+    <link rel="stylesheet" media="screen" href="{{request|asset}}/assets/cache/djaodjin-menubar.css" />
     <style>
 body {
    margin: 0;
@@ -126,7 +126,7 @@ body {
 
   <footer class="footer">
     <div>
-        Powered by DjaoDjin. &copy; 2024 All rights reserved.
+        Powered by DjaoDjin. &copy; 2025 All rights reserved.
     </div>
   </footer>
 
@@ -136,6 +136,6 @@ const DJAOAPP_API_BASE_URL = "{{urls.api_base}}";
 {% endif %}
   </script>
   <script type="text/javascript" src="/static/js/auth.js"></script>
-  <script type="text/javascript" src="http://localhost:8020/assets/js/djaodjin-menubar.js"></script>
+  <script type="text/javascript" src="{{'/assets/js/djaodjin-menubar.js'|asset}}"></script>
 </body>
 </html>

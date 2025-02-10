@@ -24,8 +24,9 @@ async function authUser(event) {
 
     // Call the authentication API
     const data = {'username': username, 'password': password};
-    const resp = await fetch(API_URL + "/auth", {
+    const resp = await fetch(API_URL + "/auth?cookie=1", {
         method: "POST",
+        credentials: 'include',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
     })
@@ -38,9 +39,7 @@ async function authUser(event) {
         sessionStorage.setItem('authToken', authToken);
 
         // Move on to the authenticated part of the application...
-        const user = parseJWT(authToken);
-        if( !user.username ) return 0;
-        event.target.innerHTML = `Hello ${user.printable_name}!`;
+        window.location.replace("/app/");
 
     } else {
         document.querySelector('#messages-content').innerHTML =

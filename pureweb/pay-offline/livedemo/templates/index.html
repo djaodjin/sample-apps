@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center">
+  <h1 class="mb-3">Tutorial for offline payment workflow</h1>
+  <!-- subscriber page -->
+  <div class="row">
+    <div class="col-12">
+      <h2>Step 1: Create payment URL as a subscriber</h2>
+      <p>
+<a href="{{'/login/'|site_url}}">Login</a> as a subscriber,
+add the plan to the cart by clicking
+<strong>Add plan</strong>, then click <strong>Pay later</strong>.
+      </p>
+      <p>
+Remember the <em>claim code</em> and <em>profile</em>. You will need it after
+you login as a provider.
+      </p>
+      <div class="row">
+        <div class="col-6 offset-md-2 col-md-4">
+          <form
+            onsubmit="addToCart(event, 'tutorial-offline')"
+            method="post" action=".">
+            <button type="submit" class="btn btn-primary">
+              1. Add plan
+            </button>
+          </form>
+        </div>
+        <div class="col-6 col-md-4">
+          <form
+            onsubmit="createPaymentURL(event)"
+            method="post" action=".">
+            <button type="submit" class="btn btn-primary">
+              2. Pay later
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-4" />
+
+  <!-- provider page -->
+  <div class="row">
+    <div class="col-12">
+      <h2>Step 2: Mark invoice as paid by a provider</h2>
+      <p>
+<a href="{{'/login/'|site_url}}">Login</a> as a provider for the plan that
+was invoiced, enter the <em>claim code</em>,
+then click <strong>Mark as paid</strong>.
+      </p>
+      <form
+          onsubmit="markAsPaid(event)"
+          method="post" action=".">
+        <div class="text-start mb-3">
+          <label class="form-label">Payment URL</label>
+          <input class="form-control w-100" id="paymentURL" type="text" value="" disabled />
+        </div>
+        <div class="text-start mb-3">
+          <label class="form-label">Claim code</label>
+          <input class="form-control w-100" name="claimCode" type="text" value="" />
+        </div>
+        <div class="text-start mb-3">
+          <label class="form-label">Profile</label>
+          <input class="form-control w-100" name="profile" type="text" value="" />
+        </div>
+        <button type="submit" class="btn btn-primary">
+            Mark as paid
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block bodyscripts %}
+<script type="text/javascript">
+{% if urls and urls.api_base %}
+const DJAOAPP_API_BASE_URL = "{{urls.api_base}}";
+{% endif %}
+</script>
+<script type="text/javascript" src="/static/js/auth.js"></script>
+<script type="text/javascript" src="/static/js/pay-offline.js"></script>
+{% endblock %}
+</body>
+</html>

@@ -38,7 +38,7 @@ added. Example:
 ```
 
 The full source code for this tutorial is available on
-[GitHub](https://github.com/djaodjin/sample-apps/tree/main/apicall).
+[GitHub](https://github.com/djaodjin/sample-apps/tree/main/pureweb/apicall).
 
 
 Setting up
@@ -49,6 +49,21 @@ and download the [default theme](https://www.djaodjin.com/docs/guides/themes/)
 at this point. If it is not the case, I recommend you read the
 [Create and test content locally](../htmlpage/) tutorial first.
 
+To have a basic theme to build on, we download the base.html,
+_generic_navbar.html and _form_fields.html theme templates, and
+download the base.css and djaodjin-menubar.css static assets.
+
+```console
+$ djd download
+$ unzip *livedemo*.zip
+```
+
+Then we start the local server. Note here that we have edited the local server
+and templates so we can pass the DjaoApp API endpoint on the command line.
+
+``` console
+$ DJAOAPP_API_BASE_URL="https://*livedemo*.djaoapp.com/api" uvicorn main:app --reload
+```
 
 Adding a form to login directly from the homepage
 -------------------------------------------------
@@ -57,14 +72,12 @@ The Jinja2 template for the homepage is in "*livedemo*/templates/index.html".
 We will thus edit this file to add a login form to it.
 
 ```{.jinja2 title="index.html"}
- <div>
-+   <form method="post" action="/login/">
-+     {% include "accounts/_login_form_fields.html" %}
-+     <button type="submit" class="btn btn-primary">
-+         Sign in
-+     </button>
-+   </form>
- </div>
++ <form method="post" action="/login/">
++   {% include "accounts/_login_form_fields.html" %}
++   <button type="submit">
++     Sign in
++   </button>
++ </form>
 ```
 
 The input fields are defined in the partial template
@@ -82,7 +95,7 @@ The input fields are defined in the partial template
 
 We run the local HTTP server
 
-``` {.bash title="Terminal"}
+```console
 $ export DJAOAPP_API_BASE_URL="http://*_subdomain_*.djaoapp.com/api"
 $ uvicorn main:app --reload
 ```
@@ -97,11 +110,11 @@ function such that when a user clicks **Sign in** we pass the credentials
 to the DjaoDjin-hosted website and retrieves a JSON Web Token (JWT) to
 authenticate the user with the Website in further interaction.
 
-Create a file "*livedemo*/public/static/js/auth.js" with the following
-content:
+Create a file *livedemo*/public/static/js/auth.js ([full source](https://github.com/djaodjin/sample-apps/tree/main/pureweb/apicall/livedemo/public/static/js/auth.js))
+with the following function:
 
 ``` {.javascript title="auth.js"}
-async function auth(event) {
+async function authUser(event) {
     // Prevents the form to be submitted to the server
     // through the `action` attribute.
     event.preventDefault();
@@ -111,8 +124,6 @@ async function auth(event) {
     const password = event.target.querySelector('[name="password"]').value
 
     // Call the authentication API
-    // `API_URL` is a global variable defined somewhere else. Example:
-    // `const API_URL = "https://livedemo.djaoapp.com/api"`
     const data = {'username': username, 'password': password};
     const resp = await fetch(API_URL + "/auth", {
         method: "POST",
@@ -123,16 +134,14 @@ async function auth(event) {
     if( resp.status == 201 ) {
         // Extract the JWT and decode the user account information.
         const respData = await resp.json();
-        const token = respData.token;
-        const base64Url = token.split('.')[1];
-        // JWT uses base64url (RFC 4648 §5),
-        // so using only atob (which uses base64) isn't enough.
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const user = JSON.parse(atob(base64));
+        const authToken = respData.token;
+
+        sessionStorage.setItem('authToken', authToken);
 
         // Move on to the authenticated part of the application...
-        document.querySelector('#messages-content').innerHTML =
-            `Hello ${user.printable_name}!`;
+        const user = parseJWT(authToken);
+        if( !user.username ) return 0;
+        event.target.innerHTML = `Hello ${user.printable_name}!`;
 
     } else {
         document.querySelector('#messages-content').innerHTML =
@@ -144,31 +153,21 @@ async function auth(event) {
 ```
 
 We will need the browser to load the script with the autentication function,
-and since we are going to add more authentication-related code later on,
-we decide to add the `<script>` HTML line into
-"*livedemo*/templates/base.html" (login, register and other
-such pages extend base.html in the
-[default theme](https://www.djaodjin.com/docs/guides/themes/)).
-We are also adding a global constant for the API_URL endpoint so we
-only have one place to update it.
+so we add a `<script>` element to the template that contains the login form.
 
-
-```{.jinja2 title="_login_form_fields.html"}
+```{.jinja2 title="index.html"}
  {% block bodyscripts %}
-+<script type="text/javascript">
-+const API_URL = "https://_livedemo_.djaoapp.com/api";
-+</script>
 +<script type="text/javascript" src="/static/js/auth.js"></script>
  {% endblock %}
 ```
 
-We will also need to call our `auth` function when the user submits
+We will also need to call our `authUser` function when the user submits
 the form so we add an `onsubmit` event on the login form in
 "*livedemo*/templates/index.html"
 
-```{.jinja2 title="_login_form_fields.html"}
+```{.jinja2 title="index.html"}
    <form
-+    onsubmit="auth(event)"
++    onsubmit="authUser(event)"
      method="post" action=".{% if next %}/?next={{next}}{% endif %}">
 ```
 
@@ -211,7 +210,7 @@ Upload theme updates
 The code works so let's publish it. To do so we run the command
 
 ``` {.bash title="Terminal"}
-$ djd upload _livedemo_/templates _livedemo_/public
+$ djd upload *livedemo*/templates *livedemo*/public
 ```
 
 Note that contrary to the [Create and test content locally](../htmlpage/)
