@@ -33,7 +33,7 @@ async function onboard(event) {
   // Registering contact user account
   // --------------------------------
 
-  // https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/api/#auth_register_create
+  // https://www.djaodjin.com/docs/reference/djaoapp/2026-02-23/api/#auth_register_create
   const resp1 = await fetch(API_URL + '/api/auth/register', {
       method: "POST",
       headers: {
@@ -60,7 +60,7 @@ async function onboard(event) {
   // Creating member profile
   // -----------------------
 
-  // https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/api/#users_profiles_create
+  // https://www.djaodjin.com/docs/reference/djaoapp/2026-02-23/api/#users_profiles_create
   const resp2 = await fetch(API_URL + '/api/users/' + user.username + '/profiles', {
       method: "POST",
       headers: {
@@ -105,7 +105,7 @@ async function onboard(event) {
   }
 
   // adding kinship meta information between profile and user
-  // https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/api/#XXX
+  // https://www.djaodjin.com/docs/reference/djaoapp/2026-02-23/api/#XXX
   const resp3 = await fetch(API_URL + '/api/profile/' + member.slug + '/roles/manager/' + user.username, {
       method: "PUT",
       headers: {
@@ -125,7 +125,7 @@ async function onboard(event) {
   // Subscribing member to classes
   // -----------------------------
 
-  // https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/api/#cart_create
+  // https://www.djaodjin.com/docs/reference/djaoapp/2026-02-23/api/#cart_create
   const resp4 = await fetch(API_URL + '/api/cart', {
       method: "POST",
       headers: {
@@ -143,7 +143,7 @@ async function onboard(event) {
       return false;
   }
 
-  // https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/api/#billing_checkout_create
+  // https://www.djaodjin.com/docs/reference/djaoapp/2026-02-23/api/#billing_checkout_create
   const resp5 = await fetch(API_URL + '/api/billing/' + member.slug + '/checkout', {
       method: "POST",
       headers: {

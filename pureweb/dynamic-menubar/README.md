@@ -50,7 +50,7 @@ first.
 Inserting dynamic menu item for the authenticated user
 ------------------------------------------------------
 
-The [/api/users/{user}](https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/api/#users_retrieve)
+The [/api/users/{user}](https://www.djaodjin.com/docs/reference/djaoapp/2026-02-23/api/#users_retrieve)
 endpoint has the ability to return a pre-rendered HTML menu item and dropdown
 when called with a `Accept: text/html` HTTP header.
 

@@ -75,15 +75,15 @@ to create the following models in the database:
 
 The workflow consists of the following steps (full source code available in [public/app.js](https://github.com/djaodjin/sample-apps/tree/main/onboarding/onboarding-member/public/app.js)):
 
-- [Register a user account](https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/api/#auth_register_create) for the parent
-- [Create the child profile](https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/api/#users_profiles_create)
-- Subscribe the child to classes by [adding plans to the parent's cart](https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/api/#cart_create),
-and [checking out the cart on the child's profile](https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/api/#billing_checkout_create).
+- [Register a user account](https://www.djaodjin.com/docs/reference/djaoapp/2026-02-23/api/#auth_register_create) for the parent
+- [Create the child profile](https://www.djaodjin.com/docs/reference/djaoapp/2026-02-23/api/#users_profiles_create)
+- Subscribe the child to classes by [adding plans to the parent's cart](https://www.djaodjin.com/docs/reference/djaoapp/2026-02-23/api/#cart_create),
+and [checking out the cart on the child's profile](https://www.djaodjin.com/docs/reference/djaoapp/2026-02-23/api/#billing_checkout_create).
 
 Preventing notifications
 ------------------------
 
-The basic workflow will generate an [order confirmation notification](https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/notifications/#order_executed)
+The basic workflow will generate an [order confirmation notification](https://www.djaodjin.com/docs/reference/djaoapp/2026-02-23/notifications/#order_executed)
 when the cart is checked out.
 
 We can either rewrite the [notification theme template](https://www.djaodjin.com/docs/guides/themes/#notification_order_executed) to send a meangingful
@@ -115,7 +115,7 @@ at the time we create the profile through the `extra` field.
 ``` javascript
 const dateOfBirth = document.getElementsByName('date_of_birth')[0].value;
 const gender = document.getElementsByName('gender')[0].value;
-fetch(API_URL + ['/api/users/' + user.username + '/profiles'](https://www.djaodjin.com/docs/reference/djaoapp/2024-03-15/api/#users_profiles_create), {
+fetch(API_URL + ['/api/users/' + user.username + '/profiles'](https://www.djaodjin.com/docs/reference/djaoapp/2026-02-23/api/#users_profiles_create), {
     ...
 
     body: JSON.stringify({
@@ -145,7 +145,7 @@ fetch(API_URL + '/api/profile/' + profile.slug + '/roles/manager/' + user.userna
 Adding multiple parent/guardian to the child profile
 ----------------------------------------------------
 
-We add multiple parent/guardian by [creating a role](https://www.djaodjin.com/docs/docs/reference/djaoapp/2024-03-15/api/#profile_roles_create)
+We add multiple parent/guardian by [creating a role](https://www.djaodjin.com/docs/docs/reference/djaoapp/2026-02-23/api/#profile_roles_create)
 for each of them.
 
 By default we can only grant existing users a role on a profile. If we want
